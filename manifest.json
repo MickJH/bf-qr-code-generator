@@ -1,7 +1,7 @@
 {
   "name": "Basic-Fit QR",
   "short_name": "Basic-Fit",
-  "description": "Basic-Fit gym QR pass",
+  "description": "Basic-Fit sportschool QR-pas",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

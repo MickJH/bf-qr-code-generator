@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -25,15 +25,15 @@
   <body>
     <!-- Configuration Form -->
     <div id="configSection">
-      <h1>Configuration</h1>
+      <h1>Configuratie</h1>
 
       <div class="form-group">
-        <label for="cardNumber">Card Number</label>
+        <label for="cardNumber">Kaartnummer</label>
         <input type="text" id="cardNumber" placeholder="V00123456" />
       </div>
 
       <div class="form-group">
-        <label for="deviceId">Device ID</label>
+        <label for="deviceId">Apparaat-ID</label>
         <input
           type="text"
           id="deviceId"
@@ -42,12 +42,12 @@
       </div>
 
       <div class="form-group">
-        <label for="constant">Constant</label>
+        <label for="constant">Constante</label>
         <input type="text" id="constant" placeholder="3M9" />
       </div>
 
-      <button id="generateBtn" class="btn">Generate QR Code</button>
-      <button id="debugBtn" class="btn-debug" type="button">Mode debug</button>
+      <button id="generateBtn" class="btn">QR-code genereren</button>
+      <button id="debugBtn" class="btn-debug" type="button">Debugmodus</button>
     </div>
 
     <!-- Debug / original QR Display -->
@@ -58,17 +58,17 @@
         <div id="progressBarDebug" class="progress-bar"></div>
       </div>
       <div class="skip-controls">
-        <button id="skipQrBtnDebug" class="btn-skip" type="button">Force Next Refresh</button>
+        <button id="skipQrBtnDebug" class="btn-skip" type="button">Volgende vernieuwing forceren</button>
       </div>
       <button id="backBtnDebug" class="btn btn-secondary" type="button">
-        Back to Configuration
+        Terug naar configuratie
       </button>
     </div>
 
     <!-- QR Code Display -->
     <div id="qrSection" style="display: none">
       <div class="qr-header">
-        <button id="closeBtn" class="icon-btn" type="button" aria-label="Fermer">
+        <button id="closeBtn" class="icon-btn" type="button" aria-label="Sluiten">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="6" y1="6" x2="18" y2="18"></line>
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -81,7 +81,7 @@
           <div class="qr-card-wrap">
             <div class="qr-inner">
               <canvas id="qrCanvas"></canvas>
-              <span class="qr-badge">Cardnumber <span id="qrCardNumber"></span></span>
+              <span class="qr-badge">Kaartnummer <span id="qrCardNumber"></span></span>
             </div>
           </div>
           <div class="qr-progress">
@@ -89,20 +89,20 @@
           </div>
         </div>
         <div class="qr-text">
-          <h1 class="qr-title">Votre code QR</h1>
+          <h1 class="qr-title">Jouw QR-code</h1>
           <p class="qr-description">
-            Scannez ce code QR pour entrer dans le club ou pour profiter des
-            Options. Présentez votre code QR à environ 20 cm du scanner.
+            Scan deze QR-code om de club te betreden of om gebruik te maken
+            van de Opties. Houd je QR-code op ongeveer 20 cm van de scanner.
           </p>
         </div>
       </div>
 
       <div class="qr-cta-wrap">
         <button id="helpBtn" class="btn-cta" type="button">
-          Comment utiliser le code QR
+          Hoe gebruik je de QR-code
         </button>
         <button id="feedbackBtn" class="btn-feedback" type="button">
-          Donne nous ton avis
+          Geef ons je feedback
         </button>
       </div>
     </div>

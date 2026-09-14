@@ -1,0 +1,9 @@
+name: basicfit-qr-code
+
+services:
+  web:
+    build: .
+    container_name: basicfit-qr-code
+    ports:
+      - "8080:80"
+    restart: unless-stopped

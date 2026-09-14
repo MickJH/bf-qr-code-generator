@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const constant = constantInput.value.trim();
 
     if (!cardNumber || !deviceId || !constant) {
-      alert('Please fill in all fields');
+      alert('Vul alle velden in');
       return null;
     }
 
