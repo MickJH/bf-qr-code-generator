@@ -7,3 +7,8 @@ services:
     ports:
       - "8088:80"
     restart: unless-stopped
+    environment:
+      # Set these in Portainer (Stack -> Environment variables) or in a .env file.
+      BF_CARD_NUMBER: "${BF_CARD_NUMBER:-}"
+      BF_DEVICE_ID: "${BF_DEVICE_ID:-}"
+      BF_CONSTANT: "${BF_CONSTANT:-}"

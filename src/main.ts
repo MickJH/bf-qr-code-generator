@@ -1,10 +1,10 @@
 import QRCode from 'qrcode';
 
-const STORAGE_KEYS = {
-  CARD_NUMBER: 'bf_card_number',
-  DEVICE_ID: 'bf_device_id',
-  CONSTANT: 'bf_constant'
-};
+// Runtime configuration injected by the container entrypoint into env-config.js
+// (generated from BF_CARD_NUMBER / BF_DEVICE_ID / BF_CONSTANT environment vars).
+// Nothing is persisted client-side: no localStorage, no cookies.
+type BfEnv = { CARD_NUMBER?: string; DEVICE_ID?: string; CONSTANT?: string };
+const ENV: BfEnv = (window as unknown as { __BF_ENV__?: BfEnv }).__BF_ENV__ || {};
 
 type ViewConfig = {
   canvasId: string;
@@ -127,15 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const skipQrBtnDebug = document.getElementById('skipQrBtnDebug') as HTMLButtonElement;
   const qrCardNumberLabel = document.getElementById('qrCardNumber') as HTMLSpanElement;
 
-  // Checks for URL parameters first, then fall back to localStorage
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlCardNumber = urlParams.get('cardNumber');
-  const urlDeviceId = urlParams.get('deviceId');
-  const urlConstant = urlParams.get('constant');
-
-  cardNumberInput.value = urlCardNumber || localStorage.getItem(STORAGE_KEYS.CARD_NUMBER) || '';
-  deviceIdInput.value = urlDeviceId || localStorage.getItem(STORAGE_KEYS.DEVICE_ID) || '';
-  constantInput.value = urlConstant || localStorage.getItem(STORAGE_KEYS.CONSTANT) || '';
+  // Prefill from injected environment config only. Values are never persisted.
+  cardNumberInput.value = ENV.CARD_NUMBER || '';
+  deviceIdInput.value = ENV.DEVICE_ID || '';
+  constantInput.value = ENV.CONSTANT || '';
 
   function readForm(): { cardNumber: string; deviceId: string; constant: string } | null {
     const cardNumber = cardNumberInput.value.trim();
@@ -146,10 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Vul alle velden in');
       return null;
     }
-
-    localStorage.setItem(STORAGE_KEYS.CARD_NUMBER, cardNumber);
-    localStorage.setItem(STORAGE_KEYS.DEVICE_ID, deviceId);
-    localStorage.setItem(STORAGE_KEYS.CONSTANT, constant);
 
     return { cardNumber, deviceId, constant };
   }
@@ -196,4 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!form) return;
     skipToNextQR(VIEW_DEBUG, form.cardNumber, form.constant, form.deviceId);
   });
+
+  // Auto-start: if the environment provided a complete config, skip the form
+  // and show the QR immediately on load. The close/back button returns here.
+  if (ENV.CARD_NUMBER && ENV.DEVICE_ID && ENV.CONSTANT) {
+    generateBtn.click();
+  }
 });

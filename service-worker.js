@@ -1,4 +1,4 @@
-const CACHE_NAME = "bf-qr-v1";
+const CACHE_NAME = "bf-qr-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -32,6 +32,14 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
+
+  // Never cache the runtime env config: it is regenerated on each container
+  // start from environment variables and must always be fetched fresh.
+  if (new URL(req.url).pathname.endsWith("/env-config.js")) {
+    event.respondWith(fetch(req));
+    return;
+  }
+
   event.respondWith(
     caches.match(req).then(
       (cached) =>
